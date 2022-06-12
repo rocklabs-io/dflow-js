@@ -1,5 +1,5 @@
-import { _SERVICE } from '@/declearations/models/dtoken.did';
-import { idlFactory } from '@/declearations/idls/dtoken.did'
+import { _SERVICE } from '@/declarations/models/dtoken.did';
+import { idlFactory } from '@/declarations/idls/dtoken.did'
 import { ActorAdapter } from './adapter';
 
 /**

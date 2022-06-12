@@ -1,4 +1,4 @@
-import { Default } from '@/declearations';
+import { Default } from '@/declarations';
 import { Actor, ActorSubclass, Agent, HttpAgent } from '@dfinity/agent';
 import { IDL } from '@dfinity/candid';
 import fetch from 'cross-fetch';

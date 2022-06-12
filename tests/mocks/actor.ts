@@ -1,6 +1,6 @@
 import { Principal } from "@dfinity/principal";
-import { _SERVICE as dtoken_SERVICE } from "declearations/models/dtoken.did";
-import { Metadata, _SERVICE as factory_SERVICE } from "declearations/models/factory.did";
+import { _SERVICE as dtoken_SERVICE } from "@/declarations/models/dtoken.did";
+import { Metadata, _SERVICE as factory_SERVICE } from "@/declarations/models/factory.did";
 import { FactoryActor, WrappedTokenActor } from "integrations";
 import { mockFlow } from ".";
 import { mockPrincipal } from "./principal";

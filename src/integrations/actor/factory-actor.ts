@@ -1,7 +1,7 @@
-import { _SERVICE } from '@/declearations/models/factory.did';
-import { idlFactory } from '@/declearations/idls/factory.did'
+import { _SERVICE } from '@/declarations/models/factory.did';
+import { idlFactory } from '@/declarations/idls/factory.did'
 import { ActorAdapter } from './adapter';
-import { Default } from "@/declearations";
+import { Default } from "@/declarations";
 
 /**
  * Options for creating an SwapActor.

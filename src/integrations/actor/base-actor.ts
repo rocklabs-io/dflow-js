@@ -1,5 +1,5 @@
-import { _SERVICE } from '@/declearations/models/dip20.did';
-import { idlFactory } from '@/declearations/idls/dip20.did'
+import { _SERVICE } from '@/declarations/models/dip20.did';
+import { idlFactory } from '@/declarations/idls/dip20.did'
 import { ActorAdapter } from './adapter';
 
 /**

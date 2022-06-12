@@ -37,15 +37,16 @@
       }
     ]
   },
-  "typedocOptions": {
-    "entryPoints": [
-      "src/index.ts"
-    ],
-    "exclude": [
-      "src/declarations/did/*.js"
-    ],
-    "out": "docs"
-  },
+  // "typedocOptions": {
+  //   "entryPoints": [
+  //     "src/index.ts"
+  //   ],
+  //   "exclude": [
+  //     "src/declarations/idls/*",
+  //     "src/declarations/models/*",
+  //   ],
+  //   "out": "docs"
+  // },
   "include": [
     "src",
     "tests"

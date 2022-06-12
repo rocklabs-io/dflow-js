@@ -1,16 +1,16 @@
 // import { TokenInfo } from "@/declearations/models/dip20.did";
-import { WrappedData, _SERVICE } from "@/declearations/models/factory.did";
+import { _SERVICE } from "@/declarations/models/factory.did";
 import { ActorAdapter } from "../actor/adapter";
 import { FactoryActor } from "../actor/factory-actor";
-import { idlFactory } from "@/declearations/idls/factory.did";
-import { Default } from "@/declearations";
+import { idlFactory } from "@/declarations/idls/factory.did";
+import { Default } from "@/declarations";
 import { Principal } from "@dfinity/principal";
 import { createBaseTokenActor, createWrappedTokenActor } from "../actor"
-import { Flow, UserFlowsResponse } from "@/declearations/models/dtoken.did";
+import { Type } from "@/declarations";
 
 export class DFlowController {
 
-  tokenList: Array<WrappedData> = [];
+  tokenList: Array<Type.WrappedData> = [];
 
   constructor(
     private factoryActor: FactoryActor = ActorAdapter.createAnonymousActor<_SERVICE>(
@@ -18,16 +18,17 @@ export class DFlowController {
       idlFactory
     )
   ) { }
+
   /**
    * Get all token pair supported by DFlow. 
-   * @returns {WrappedData} the returned data is an array of 
+   * @returns {Type.WrappedData} the returned data is an array of 
    * base-token and wrapped token pair.
    */
-  async getAllTokens(): Promise<Array<WrappedData>> {
+  async getAllTokens(): Promise<Array<Type.WrappedData>> {
     const res = await this.factoryActor.getAllTokens()
     const parsedRes = res.reduce(
       (prased, item) => [...prased, item[1]]
-      , [] as Array<WrappedData>);
+      , [] as Array<Type.WrappedData>);
     this.tokenList = parsedRes;
     return parsedRes;
   }
@@ -36,10 +37,10 @@ export class DFlowController {
    * Get the wrapped token info of a base token.
    * This function get wrapped token from factory canister.
    * @param {Principal} tokenId The principal id of the token.
-   * @returns {Promise<Array<WrappedData>>} Return an array. 
+   * @returns {Promise<Array<Type.WrappedData>>} Return an array. 
    * The array would be empty if the wrapped token is not found.
    */
-  async getWrappedTokens(tokenId: Principal): Promise<Array<WrappedData>> {
+  async getWrappedTokens(tokenId: Principal): Promise<Array<Type.WrappedData>> {
     const res = await this.factoryActor.getWrappedTokens(tokenId)
     const parsedRes = res
     return parsedRes;
@@ -150,10 +151,10 @@ export class DFlowController {
   /**
    * Get one flow's information of a token by flow Id.
    * @param {string} tokenId Token's canister Id.
-   * @param flowId FlowId in format: '''c.<sender.principal.toString()>.<receiver.principal.toString()>'''.
-   * @returns {Promise<Array<Flow>>} Return Array of Flow in Promise. Empty if not found.
+   * @param flowId FlowId in format: `c.<sender.principal.toString()>.<receiver.principal.toString()>`.
+   * @returns {Promise<Array<Type.Flow>>} Return Array of Flow in Promise. Empty if not found.
    */
-  async getFlowFromId(tokenId: string, flowId: string): Promise<Array<Flow>> {
+  async getFlowFromId(tokenId: string, flowId: string): Promise<Array<Type.Flow>> {
     await this.checkWrappedTokenId(tokenId);
     const tokenActor = await createWrappedTokenActor({
       canisterId: tokenId
@@ -167,9 +168,9 @@ export class DFlowController {
    * Get all flows' information of a token by user's principal Id.
    * @param {string} tokenId Token's canister Id.
    * @param {Principal} userId User's principal Id.
-   * @returns {Promise<UserFlowsResponse>} Return Array of UserFlowResponse in Promise. Empty if not found.
+   * @returns {Promise<Type.UserFlowsResponse>} Return Array of UserFlowResponse in Promise. Empty if not found.
    */
-  async getUserFlows(tokenId: string, userId: Principal): Promise<UserFlowsResponse> {
+  async getUserFlows(tokenId: string, userId: Principal): Promise<Type.UserFlowsResponse> {
     await this.checkWrappedTokenId(tokenId);
     const tokenActor = await createWrappedTokenActor({
       canisterId: tokenId
@@ -215,7 +216,7 @@ export class DFlowController {
   /**
    * Update rate of flow. Flow rate could be updated by sender.
    * @param {string} tokenId Token's canister Id.
-   * @param {string} flowId FlowId in format: '''c.<sender.principal.toString()>.<receiver.principal.toString()>'''.
+   * @param {string} flowId FlowId in format: `c.<sender.principal.toString()>.<receiver.principal.toString()>`.
    * @param {bigint} newRate Rate: smallest denomination token per second.
    */
   async updateFlowRate(tokenId: string, flowId: string, newRate: bigint): Promise<void> {
@@ -227,3 +228,4 @@ export class DFlowController {
     if ('Err' in res) throw new Error(res.Err.toString())
   }
 }
+
